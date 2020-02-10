@@ -14,7 +14,8 @@ paths:
   '/api/{credential_name}/autocomplete/{locale}':
     get:
       summary: Suggests city for autocomplete
-      tags: []
+      tags:
+        - Locations
       responses:
         '200':
           description: OK
@@ -59,7 +60,8 @@ paths:
   '/api/{credential_name}/directions/popular':
     get:
       summary: List popular directions
-      tags: []
+      tags:
+        - Locations
       responses:
         '200':
           description: OK
@@ -82,7 +84,8 @@ paths:
   '/api/{credential_name}/directions/popular_from/{from_id}':
     get:
       summary: List popular directions from given departure city
-      tags: []
+      tags:
+        - Popularity
       responses:
         '200':
           description: OK
@@ -111,7 +114,8 @@ paths:
   '/api/{credential_name}/locations/{location_id}':
     get:
       summary: Location details
-      tags: []
+      tags:
+        - Popularity
       responses:
         '200':
           description: OK
@@ -175,6 +179,8 @@ components:
         - id
         - name
         - region_name
+      x-tags:
+        - Locations
     PopularDirection:
       title: PopularDirection
       type: object
@@ -191,4 +197,6 @@ components:
         - from
         - to
         - popularity
+      x-tags:
+        - Popularity
   securitySchemes: {}
