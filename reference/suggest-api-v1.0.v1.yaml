@@ -1,0 +1,194 @@
+openapi: 3.0.0
+info:
+  title: Suggest API v1.0
+  version: '1.0'
+  description: Location suggestions for tickets search.
+  contact:
+    name: Pavel Lazureykis
+    email: lazureykis@gmail.com
+    url: 'https://t.me/lazureykis'
+servers:
+  - url: 'https://suggest.busfor.com'
+    description: production
+paths:
+  '/api/{credential_name}/autocomplete/{locale}':
+    get:
+      summary: Suggests city for autocomplete
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+        '404':
+          description: Not Found
+      operationId: get-autocomplete
+      description: Returns list of cities according to given query.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: q
+          description: Query text or prefix
+          required: true
+      requestBody:
+        description: ''
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - ru
+            - en
+            - uk
+          default: ru
+        name: locale
+        in: path
+        required: true
+        description: Locale
+      - schema:
+          type: string
+          default: default
+        name: credential_name
+        in: path
+        required: true
+        description: GDS API credential name
+  '/api/{credential_name}/directions/popular':
+    get:
+      summary: List popular directions
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PopularDirection'
+      operationId: get-directions-popular
+      description: Returns list of popular directions for given GDS credential
+    parameters:
+      - schema:
+          type: string
+          default: default
+        name: credential_name
+        in: path
+        description: GDS credential name
+        required: true
+  '/api/{credential_name}/directions/popular_from/{from_id}':
+    get:
+      summary: List popular directions from given departure city
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PopularDirection'
+      operationId: get-directions-popular-from
+      description: |-
+        Returns list of popular directions from given departure city.
+        Try from_id = 1290.
+    parameters:
+      - schema:
+          type: string
+          default: default
+        name: credential_name
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: from_id
+        in: path
+        required: true
+  '/api/{credential_name}/locations/{location_id}':
+    get:
+      summary: Location details
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        '404':
+          description: Not Found
+      operationId: get-locations-show
+      description: Show location details. Try location_id = 1290.
+    parameters:
+      - schema:
+          type: string
+        name: location_id
+        in: path
+        required: true
+      - schema:
+          type: string
+          default: default
+        name: credential_name
+        in: path
+        required: true
+        description: GDS API credential name
+components:
+  schemas:
+    City:
+      title: City
+      type: object
+      description: City details
+      properties:
+        country_name:
+          type: string
+          description: Country name
+          example: Россия
+        full_name:
+          type: string
+          description: 'City name, region name, country name'
+          example: 'Воронеж, Воронежская обл., Россия'
+        full_region:
+          type: string
+          example: 'Воронежская обл., Россия'
+          description: 'Region name, country name'
+        id:
+          type: integer
+          description: Location identifier
+          example: '41236'
+          minimum: 1
+        name:
+          type: string
+          description: City name
+          example: Воронеж
+        region_name:
+          type: string
+          example: Воронежская обл.
+          description: Region name
+      required:
+        - country_name
+        - full_name
+        - full_region
+        - id
+        - name
+        - region_name
+    PopularDirection:
+      title: PopularDirection
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/City'
+        to:
+          $ref: '#/components/schemas/City'
+        popularity:
+          type: integer
+          description: Popularity value
+          minimum: 0
+      required:
+        - from
+        - to
+        - popularity
+  securitySchemes: {}
