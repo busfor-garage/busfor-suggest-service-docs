@@ -36,8 +36,6 @@ paths:
           name: q
           description: Query text or prefix
           required: true
-      requestBody:
-        description: ''
     parameters:
       - schema:
           type: string
@@ -162,7 +160,7 @@ components:
         id:
           type: integer
           description: Location identifier
-          example: '41236'
+          example: 41236
           minimum: 1
         name:
           type: string
