@@ -11,7 +11,7 @@ servers:
   - url: 'https://suggest.busfor.com'
     description: production
 paths:
-  '/api/{credential_name}/autocomplete/{locale}':
+  '/api/{credential_name}/{locale}/autocomplete':
     get:
       summary: Suggests city for autocomplete
       tags:
@@ -55,7 +55,7 @@ paths:
         in: path
         required: true
         description: GDS API credential name
-  '/api/{credential_name}/directions/popular':
+  '/api/{credential_name}/{locale}/directions/popular':
     get:
       summary: List popular directions
       tags:
@@ -79,7 +79,17 @@ paths:
         in: path
         description: GDS credential name
         required: true
-  '/api/{credential_name}/directions/popular_from/{from_id}':
+      - schema:
+          type: string
+          enum:
+            - en
+            - ru
+            - uk
+          default: ru
+        name: locale
+        in: path
+        required: true
+  '/api/{credential_name}/{locale}/directions/popular_from/{from_id}':
     get:
       summary: List popular directions from given departure city
       tags:
@@ -109,7 +119,17 @@ paths:
         name: from_id
         in: path
         required: true
-  '/api/{credential_name}/locations/{location_id}':
+      - schema:
+          type: string
+          enum:
+            - ru
+            - en
+            - uk
+          default: ru
+        name: locale
+        in: path
+        required: true
+  '/api/{credential_name}/{locale}/locations/{location_id}':
     get:
       summary: Location details
       tags:
@@ -138,6 +158,16 @@ paths:
         in: path
         required: true
         description: GDS API credential name
+      - schema:
+          type: string
+          enum:
+            - en
+            - ru
+            - uk
+          default: ru
+        name: locale
+        in: path
+        required: true
 components:
   schemas:
     City:
