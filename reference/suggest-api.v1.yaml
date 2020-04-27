@@ -168,6 +168,43 @@ paths:
         name: locale
         in: path
         required: true
+  '/api/{credential_name}/{locale}/locations/nearest':
+    parameters:
+      - schema:
+          type: string
+        name: credential_name
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: locale
+        in: path
+        required: true
+    get:
+      summary: Get nearest locations by geo point
+      tags:
+        - Locations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+      operationId: get-api-credential_name-locale-nearest
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: lon
+          description: ''
+        - schema:
+            type: number
+          in: query
+          name: lat
+      description: ''
 components:
   schemas:
     City:
@@ -209,6 +246,7 @@ components:
         - region_name
       x-tags:
         - Locations
+      x-examples: {}
     PopularDirection:
       title: PopularDirection
       type: object
