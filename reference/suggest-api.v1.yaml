@@ -10,6 +10,8 @@ info:
 servers:
   - url: 'https://suggest.busfor.com'
     description: production
+  - url: 'https://staging.suggest.busfor.com'
+    description: staging
 paths:
   '/api/{credential_name}/{locale}/autocomplete':
     get:
