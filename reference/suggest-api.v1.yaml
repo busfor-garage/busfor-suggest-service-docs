@@ -205,6 +205,31 @@ paths:
           in: query
           name: lat
       description: ''
+  '/api/{credential_name}/{locale}/locations/popular':
+    parameters:
+      - schema:
+          type: string
+        name: credential_name
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: locale
+        in: path
+        required: true
+    get:
+      summary: List popular locations
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+      operationId: get-api-credential_name-locale-locations-popular
 components:
   schemas:
     City:
