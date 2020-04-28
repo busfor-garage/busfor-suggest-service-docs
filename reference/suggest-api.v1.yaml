@@ -209,17 +209,21 @@ paths:
     parameters:
       - schema:
           type: string
+          example: default
         name: credential_name
         in: path
         required: true
+        description: ''
       - schema:
           type: string
+          example: ru
         name: locale
         in: path
         required: true
     get:
       summary: List popular locations
-      tags: []
+      tags:
+        - Locations
       responses:
         '200':
           description: OK
@@ -230,6 +234,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/City'
       operationId: get-api-credential_name-locale-locations-popular
+      description: ''
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: from_id
+          description: Location ID
 components:
   schemas:
     City:
