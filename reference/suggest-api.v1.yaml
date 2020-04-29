@@ -38,6 +38,12 @@ paths:
           name: q
           description: Query text or prefix
           required: true
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
     parameters:
       - schema:
           type: string
@@ -73,6 +79,13 @@ paths:
                   $ref: '#/components/schemas/PopularDirection'
       operationId: get-directions-popular
       description: Returns list of popular directions for given GDS credential
+      parameters:
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
     parameters:
       - schema:
           type: string
@@ -109,6 +122,13 @@ paths:
       description: |-
         Returns list of popular directions from given departure city.
         Try from_id = 1290.
+      parameters:
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
     parameters:
       - schema:
           type: string
@@ -147,6 +167,7 @@ paths:
           description: Not Found
       operationId: get-locations-show
       description: Show location details. Try location_id = 1290.
+      parameters: []
     parameters:
       - schema:
           type: string
@@ -206,6 +227,12 @@ paths:
             type: number
           in: query
           name: lat
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
       description: ''
   '/api/{credential_name}/{locale}/locations/popular':
     parameters:
@@ -243,6 +270,13 @@ paths:
           in: query
           name: from_id
           description: Location ID
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          in: query
+          name: limit
+          description: ''
 components:
   schemas:
     City:
