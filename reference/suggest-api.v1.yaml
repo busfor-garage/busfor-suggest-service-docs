@@ -213,9 +213,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/City'
+                $ref: '#/components/schemas/City'
+        '404':
+          description: Not Found
       operationId: get-api-credential_name-locale-nearest
       parameters:
         - schema:
